@@ -1,6 +1,5 @@
 package com.alexpinkerton;
 
-import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -9,6 +8,7 @@ import java.util.Stack;
  * Created by Ace on 12/4/2015.
  */
 public class ExpressionParser {
+
 
     private enum Operator
     {
@@ -37,8 +37,21 @@ public class ExpressionParser {
     public static String generateRPN(String infix)
     {
         StringBuilder output = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         Stack<String> operatorStack  = new Stack<>();
 
+        //Remove whitespace.
+        String infixCondensed = infix.replaceAll("\\s","");
+
+        //Add whitespace for delimiting
+        for(int i=0; i<infixCondensed.length(); i++){
+            sb.append(infixCondensed.charAt(i));
+            sb.append(" ");
+        }
+        //Update infix with proper formatted version.
+        infix = sb.toString();
+
+        //Parse the expression.
         for (String token : infix.split("\\s")) {
             // Found Operator
             if (ops.containsKey(token)) {
@@ -53,7 +66,9 @@ public class ExpressionParser {
                 // Found Right Parenthesis
             } else if (token.equals(")")) {
                 while (!operatorStack.peek().equals("("))
+                    //Append each operator until left parenthesis.
                     output.append(operatorStack.pop()).append(' ');
+                //Throw away left parenthesis
                 operatorStack.pop();
 
                 // Found Digit or term.
@@ -64,6 +79,8 @@ public class ExpressionParser {
 
         while ( ! operatorStack.isEmpty())
             output.append(operatorStack.pop()).append(' ');
+        System.out.println("Infix: " + infix);
+        System.out.println("RPN: " + output.toString());
         return output.toString();
     }
 

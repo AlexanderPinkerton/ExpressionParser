@@ -11,7 +11,7 @@ public class LinkedStack<U> implements StackADT<U>{
 
     @Override
     public void push(U object) {
-        if(stackQuantity == 0){
+        if(isEmpty()){
             //The stack is empty
             top = new StackNode(object);
         }else{
@@ -26,7 +26,7 @@ public class LinkedStack<U> implements StackADT<U>{
     @Override
     public U pop() {
 
-        if(stackQuantity != 0){
+        if(!isEmpty()){
             stackQuantity--;
             U oldTop = top.getObject();
             top = top.getBelow();
@@ -39,7 +39,7 @@ public class LinkedStack<U> implements StackADT<U>{
     @Override
     public U peek() {
 
-        if(stackQuantity != 0){
+        if(!isEmpty()){
             return top.getObject();
         }
         return null;

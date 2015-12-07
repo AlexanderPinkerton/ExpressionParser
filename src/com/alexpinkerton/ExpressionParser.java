@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Created by Ace on 12/4/2015.
+ * Created by Alexander Pinkerton on 12/4/2015.
  */
 public class ExpressionParser {
 
@@ -38,7 +38,8 @@ public class ExpressionParser {
     {
         StringBuilder output = new StringBuilder();
         StringBuilder sb = new StringBuilder();
-        Stack<String> operatorStack  = new Stack<>();
+        //Stack<String> operatorStack  = new Stack<>();
+        LinkedStack<String> operatorStack = new LinkedStack<>();
 
         //Remove whitespace.
         String infixCondensed = infix.replaceAll("\\s","");
@@ -80,7 +81,7 @@ public class ExpressionParser {
         while ( ! operatorStack.isEmpty())
             output.append(operatorStack.pop()).append(' ');
         System.out.println("Infix: " + infix);
-        System.out.println("RPN: " + output.toString());
+        System.out.println("Postfix(RPN): " + output.toString());
         return output.toString();
     }
 
@@ -88,7 +89,9 @@ public class ExpressionParser {
 
     public static double evaluateRPN(String RPNString){
 
-        Stack<Double> operandStack = new Stack<>();
+        //Stack<Double> operandStack = new Stack<>();
+        LinkedStack<Double> operandStack = new LinkedStack<>();
+
         double result = 0;
 
         for(String token : RPNString.split("\\s")){

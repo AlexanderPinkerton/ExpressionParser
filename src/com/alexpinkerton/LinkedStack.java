@@ -56,6 +56,15 @@ public class LinkedStack<U> implements StackADT<U>{
     }
 
 
+    public String toString(){
+        StackNode current = top;
+        StringBuffer output = new StringBuffer();
+        for(int i=0;i<stackQuantity;i++){
+            output.append(current.getObject()).append(", ");
+            current = current.getBelow();
+        }
+        return output.toString();
+    }
 
     private class StackNode{
 
